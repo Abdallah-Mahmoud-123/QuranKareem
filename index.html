@@ -1,0 +1,220 @@
+<html>
+
+  <head>
+ 
+
+  
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  
+  
+  
+  
+  
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+
+  
+
+
+  <style>
+
+  body{
+      height: 100%;
+      margin: 0;
+    background: -webkit-linear-gradient(#CFD3FF, #5E6B86, #2E3442);
+    background: -moz-linear-gradient(#CFD3FF, #5E6B86, #2E3442);
+    background: -o-linear-gradient(#CFD3FF, #5E6B86, #2E3442);
+    background: linear-gradient(#CFD3FF, #5E6B86, #2E3442);
+      padding: 40px 20px 30px 20px;
+      text-align: center;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: 'Cairo', sans-serif;
+    }
+    input{
+      width: 100%;
+      accent-color: #99C5FF;
+  
+    }
+    button{
+      background: #99C5FF;
+      border: none;
+      border-radius: 50%;
+      height: 75px;
+      width: 75px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      
+      
+      
+    }
+    button i{
+      font-size: 30px;
+      transition: opacity 1s;
+      color: white;
+      
+    }
+    .button{
+      display: flex;
+      justify-content: space-between;
+    }
+    
+    h2{
+      color: white;
+    }
+    .hi{
+      background: none;
+    }
+    .hi:active{
+      opacity: 0.6;
+    }
+    .h4{
+      color: white;
+      display: flex;
+      justify-content: space-between;
+      
+      
+    }
+    h4{
+      position: relative;
+      top: 40px;
+    }
+    .time{
+  display: flex;
+  justify-content: space-between;
+  color: white;
+  font-size: 14px;
+  margin-top: 5px;
+}
+  .a{
+    position: relative;
+    right: 40%;
+    bottom: 20px;
+  }
+  #a{
+    color: white;
+    
+    
+  }
+  #a:active{
+    opacity: 0.3;
+  }
+  select{
+    background: #99C5FF;
+    border-radius: 5px;
+    color: white;
+    border: none;
+    outline: none;
+  }
+  select:active{
+    opacity: 0.3;
+}
+#png{
+  border-radius: 5px;
+  width: 250px;
+}
+  </style>
+</head>
+<body>
+   
+<div>
+  
+  
+  <img src="yasser.png" width="200px" id="png">
+  
+<marquee behavior="scroll" direction="right" scrollamount="3"><h2>سوره الفرقان الشيخ ياسر الدوسري/Sura Al-Furqan Yasser Al-dosry</h2></marquee>
+<audio src="Yasser.mp3" id="i"></audio>
+  <input type="range" id="t" min="0" step="0.000001" value="0">
+  <div class="time">
+  <span id="current">0:00</span>
+  <span id="duration">0:00</span>
+</div>
+
+  <select id="speed">
+    <option value="0.5">0.5</option>
+    <option value="1" selected>1</option>
+    <option value="1.5">1.5</option>
+    <option value="2">2</option>
+  </select>
+
+     
+  <div class="h4">
+    <h4>-5</h4>
+    <h4>+5</h4>
+  </div>
+  
+      
+  <a href="Yasser.mp3" download id="a"> 
+   
+   <i class="fa-solid fa-download"></i> </a>
+    
+  <div class="button">
+    
+    <button onclick="he()" class="hi"><i class="fa-solid fa-rotate-left"></i></button>
+    
+  <button id="play" onclick="stop()"><i class="fa fa-play fa-2x"></i></button>
+  <button onclick="hi()" class="hi">
+    <i class="fa-solid fa-rotate-right"></i>
+  </button>
+  </div>
+   
+</div>
+  
+  <script>
+    let speed = document.getElementById('speed')
+    let playBtn = document.getElementById("play")
+    let i = document.getElementById("i")
+    let t = document.getElementById("t")
+    let current = document.getElementById("current")
+let duration = document.getElementById("duration")
+    function formatTime(time){
+  let min = Math.floor(time / 60)
+  let sec = Math.floor(time % 60)
+  if(sec < 10) sec = "0" + sec
+  return min + ":" + sec
+}
+
+i.addEventListener("loadedmetadata", () => {
+  t.max = i.duration
+  duration.innerText = formatTime(i.duration)
+})
+    
+    t.addEventListener("input", () => {
+  i.currentTime = t.value
+})
+i.addEventListener("timeupdate", () => {
+  t.value = i.currentTime
+  current.innerText = formatTime(i.currentTime)
+})
+i.addEventListener('ended', () => {
+    i.currentTime = 0; 
+    i.play(); 
+})
+function stop() {
+  i.volume = 1
+  if(i.paused){
+  i.play()
+  playBtn.innerHTML=`<img src="pause.png" width="25px" id="img">`
+}else{
+  i.pause()
+  playBtn.innerHTML=`<i class="fa fa-play fa-2x"></i>`
+}
+}
+function hi(){
+  i.currentTime += 5
+}
+function he(){
+  i.currentTime -= 5
+}
+speed.oninput = function(){
+  i.playbackRate = speed.value
+}
+
+  </script>
+</body>
+</html>
+
+
+
